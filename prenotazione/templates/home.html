@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    
+    <div class="col-md-4">
+
+        {% if logged_in_as_client %}
+            <p><a href="{% url 'prenotazioni' %}" class="btn btn-primary">Prenotazioni</a>
+            <a href="{% url 'controlla_lista_attesa' %}" class="btn btn-primary">Centro notifiche</a>
+            <a href="{% url 'recensioni' %}" class="btn btn-primary">Recensioni</a></p>
+        {% elif is_special_user %}
+            <p><a href="{% url 'add_ristorante' %}" class="btn btn-primary">aggiungi un ristorante</a></p>
+            <br><br>
+            <form method="get">
+                {{ form }}
+                <input type="submit" value="Cerca" class="btn btn-primary"> <a href="{% url 'home'%}" class="btn btn-primary">Reset</a>
+            </form>  
+        {% endif %}
+
+        {% if not is_special_user %}
+            <h3>Ricerca ristorante</h3>
+            <form method="get" action="{% url 'home' %}">
+                {{ search_form.as_p }}
+                <button type="submit" class="btn btn-primary">Cerca</button>
+                <a href="{% url 'home' %}" class="btn btn-primary">Reset</a>
+            </form>
+        {% endif %}
+    </div>
+
+    
+    <div class="col-md-8">
+
+        {% if ristoranti %}
+            <h2>Ristoranti:</h2><br>
+            <div class="row">
+                {% for ristorante in ristoranti %}
+                <div class="col-md-4 mb-5">
+
+                    <div class="card" style="width: 18rem;">
+                        
+                        {% if ristorante.immagine %}
+                            <img src="{{ ristorante.immagine.url }}" class="card-img-top" alt="immagine ristorante">
+                        {% endif %}
+
+                        <div class="card-body">
+                          <h5 class="card-title">{{ristorante.nome}}</h5>
+                          <p class="card-text">{{ristorante.descrizione}}</p>
+                          
+                          <p class="card-text">Fascia di prezzo: {{ ristorante.fascia_prezzo }}</p>
+                            
+                          <p class="card-text">Valutazione: {{ ristorante.valutazione_vera }}</p>
+
+                          <p class="card-text">Luogo: {{ ristorante.luogo }}</p>
+
+                          <p class="card-text">Specialità: 
+                            {% if ristorante.carne %}carne{% endif %}
+                            {% if ristorante.pesce %}pesce{% endif %}
+                            {% if ristorante.pizza %}pizza{% endif %}
+                            {% if ristorante.sushi %}sushi{% endif %}
+                            {% if ristorante.vegan %}vegano{% endif %}</p>
+
+
+                            {% if logged_in_as_client %}
+                                <a href="{% url 'prenota_ristorante' ristorante.pk %}" class="btn btn-primary">Dettagli</a>
+                            {% elif is_special_user %}
+                                <p><a href="{% url 'modifica_ristorante' ristorante.pk %}" class="btn btn-primary">Modifica</a>
+                                <a href="{% url 'elimina_ristorante' ristorante.pk %}" class="btn btn-primary">Elimina</a></p>
+                                
+                                <a href="{% url 'prenotazioni_ristorante' ristorante.pk %}" class="btn btn-primary">Prenotazioni</a>
+                                <a href="{% url 'prenota_ristorante' ristorante.pk %}" class="btn btn-primary">Dettagli</a>
+                            {% else %}
+                                <a href="{% url 'prenota_ristorante' ristorante.pk %}" class="btn btn-primary">Dettagli</a>
+                            {% endif %}
+                          
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>Non ci sono ristoranti disponibili al momento.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

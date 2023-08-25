@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{%block content%}
+
+    <h2>Piatto eliminato con successo </h2>
+    <br>
+    <p>
+        <a href="{% url 'home' %}" class="btn btn-primary">Home</a>
+        <a href="{% url 'prenota_ristorante' pk %}" class="btn btn-primary">Indietro</a></p>
+{% endblock %}

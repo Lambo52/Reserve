@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{%block content%}
+
+
+    <h2>modifica</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Modifica</button>
+      <a href="{% url 'prenotazioni' %}" class="btn btn-primary">Indietro</a>
+    </form>
+    <br>
+    {% if messages %}
+  
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+
+    {% endif %}
+
+
+{% endblock %}

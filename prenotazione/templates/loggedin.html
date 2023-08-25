@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{%block content%}
+
+    <h2>Login eseguito con successo</h2>
+    <br>
+    <p>Bentornato, {{user.username}}</p>
+    <p><a href="{% url 'home' %}" class="btn btn-primary">Home</a></p>
+{% endblock %}

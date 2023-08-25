@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{%block content%}
+
+    <h2>Sei stato inserito nella lista di attesa</h2>
+    <br>
+    <p>Se il ristorante {{ ristorante.nome }} si libera per il giorno {{data}} alle {{ora}} riceverai una notifica</p>
+    <p><a href="{% url 'home' %}" class="btn btn-primary">Home</a></p>
+{% endblock %}

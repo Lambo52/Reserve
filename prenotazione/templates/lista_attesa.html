@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ ristorante.nome }}</h2>
+<p>Ci dispiace, al momento non ci sono posti disponibili per {{ data }} alle {{ ora }} per {{ numero_persone }} persone.</p>
+<p>Vuoi metterti in lista d'attesa?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="submit" name="entrato" value="Sì" class="btn btn-primary">
+    <a href="{% url 'prenota_ristorante_vero' ristorante.pk %}" class="btn btn-primary">Indietro</a>
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{%block content%}
+
+<div class="row">
+    
+    <div class="col-md-4 text-break">
+        
+        <br>
+            <form method="post" action="{% url 'recensioni' %}">
+                {% csrf_token %}
+                {{ form }}
+                <button type="submit" class="btn btn-primary">Cerca</button>
+                <a href="{% url 'recensioni' %}" class="btn btn-primary">Reset</a>
+            </form>
+
+        <br>
+        <p><a href="{% url 'home' %}" class="btn btn-primary">Indietro</a></p>
+        
+        
+    </div>
+
+
+
+
+    <div class="col-md-8">
+        {% if recensioni %}
+            <h2>Recensioni:</h2><br>
+            <div class="row">
+                {% for recensione in recensioni %}
+                <div class="col-md-4 mb-5">
+
+                    <div class="card" style="width: 18rem;">
+
+                        <div class="card-body">
+                          <h5 class="card-title">{{recensione.titolo}}</h5>
+                          <p class="card-text">Ristorante: {{recensione.ristorante.nome}}</p>
+                          <p class="card-text">{{recensione.descrizione}}</p>
+                          <p class="card-text">{{recensione.valutazione}}</p>
+                          
+                            <p><a href="{% url 'modifica_recensione' recensione.pk %}" class="btn btn-primary">Modifica</a>
+                                <a href="{% url 'elimina_recensione' recensione.pk %}" class="btn btn-primary">Elimina</a></p>
+            
+                        </div>
+                    </div>
+                    
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>Nessuna recensione disponibile.</p>
+        {% endif %}
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{%block content%}
+
+
+    <h2>Prenotazioni del ristorante {{ ristorante }}</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Visualizza prenotazioni</button>
+      <a href="{% url 'home' %}" class="btn btn-primary">Indietro</a>
+    </form>
+    <br>
+
+    {% if messages %}
+  
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+
+    {% endif %}
+
+    {% if posti >= 0 %}
+        {% if posti == 0 %}
+            Mi dispiace, ma non hai prenotazioni per il giorno e l'ora selezionati
+        {% else %}
+            Hai {{ posti }} prenotazioni per il giorno e l'ora selezionati
+        {% endif %}
+    {% endif %}
+{% endblock %}

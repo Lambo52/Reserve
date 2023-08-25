@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{%block content%}
+
+
+    <h2>Modifica ristorante</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Modifica</button>
+      <a href="{% url 'home' %}" class="btn btn-primary">Indietro</a>
+    </form>
+    
+
+{% endblock %}

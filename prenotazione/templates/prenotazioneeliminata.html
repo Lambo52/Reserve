@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{%block content%}
+
+    <h2>Prenotazione eliminata con successo </h2>
+    <br>
+    <p>
+        <a href="{% url 'home' %}" class="btn btn-primary">Home</a>
+        <a href="{% url 'prenotazioni' %}" class="btn btn-primary">Lista prenotazioni</a></p>
+{% endblock %}

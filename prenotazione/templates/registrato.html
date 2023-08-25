@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{%block content%}
+
+    <h2>Registrazione eseguita con successo</h2>
+    <br>
+    <p>Benvenuto, {{user.username}}</p>
+    <p><a href="{% url 'home' %}" class="btn btn-primary">Home</a></p>
+{% endblock %}

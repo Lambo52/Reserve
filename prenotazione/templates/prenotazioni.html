@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{%block content%}
+
+    <div class="row">
+    
+        <div class="col-md-4 text-break">
+            
+            <form method="get">
+                <br>
+                {{ search_form }}
+                <input type="submit" value="Cerca" class="btn btn-primary"> <a href="{% url 'prenotazioni' %}" class="btn btn-primary">Reset</a>
+            </form>
+            <br>
+            <p><a href="{% url 'home' %}" class="btn btn-primary">Indietro</a></p>
+            
+    
+        </div>
+    
+    
+    
+    
+        <div class="col-md-8">        
+            <div class="row">
+            {% if object_list %}
+            {% for prenotazione in object_list %}
+                
+                <div class="col-md-4 mb-5">
+    
+                <div class="card" style="width: 18rem;">
+                
+                <div class="card-body">
+                    <p class="card-text">{{prenotazione}}</p>
+                <a href="{% url 'eliminaprenotazione' prenotazione.pk %}" class="btn btn-primary">Elimina</a>
+                {% if prenotazione.data|date:"Y-m-d" >= today|date:"Y-m-d" %}
+                    <a href="{% url 'modificaprenotazione' prenotazione.pk %}" class="btn btn-primary">Modifica</a>
+                {% else %}
+                <a href="{% url 'aggiungirecensione' prenotazione.ristorante.pk %}" class="btn btn-primary">Recensisci</a>    
+                {% endif %}
+                
+                </div>
+                </div>
+      
+                </div>
+            {% endfor %}
+            {% else %}
+            <p>Nessuna prenotazione</p>
+            {% endif %}
+            </div>
+                               
+
+        </div>
+    </div>
+
+    {% endblock %}

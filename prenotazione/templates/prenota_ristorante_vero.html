@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+            <h2>Prenota il ristorante {{ ristorante }}</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <p><button type="submit" class="btn btn-primary">Prenota</button></p>
+            </form>
+
+            <p><a href="{% url 'prenota_ristorante' ristorante.pk %}" class="btn btn-primary">Indietro</a></p>
+
+
+        {% if messages %}
+  
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+
+        {% endif %}
+
+        {% endblock %}

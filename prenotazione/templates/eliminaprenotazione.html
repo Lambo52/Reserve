@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{%block content%}
+
+    <h2>Stai eliminando la {{ prenotazione }} </h2>
+    <form method="post">
+      {% csrf_token %}
+      
+      <button type="submit" class="btn btn-primary">Elimina</button>
+      <a href="{% url 'prenotazioni' %}" class="btn btn-primary">Indietro</a>  
+    </form>
+    
+{% endblock %}

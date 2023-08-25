@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{%block content%}
+
+<h2>Aggiungi Ristorante</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Aggiungi</button>
+    <a href="{% url 'home' %}" class="btn btn-primary">Indietro</a>
+</form>
+
+{% if messages %}
+  
+{% for message in messages %}
+  <p>{{ message }}</p>
+{% endfor %}
+
+{% endif %}
+
+{% endblock %}

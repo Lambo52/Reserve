@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<div class="row">
+    
+    <div class="col-md-4 text-break">
+        <h1>{{ ristorante.nome }}</h1>
+        {% if ristorante.immagine %}
+            <br>
+            <img src="{{ ristorante.immagine.url }}" alt="immagine ristorante" width="40%">
+            <br><br>
+        {% endif %}
+        <p><strong>Descrizione:</strong> {{ ristorante.descrizione }}</p>
+        <p><strong>Luogo:</strong> {{ ristorante.luogo }}</p>
+        <p><strong>Fascia di prezzo:</strong> {{ ristorante.fascia_prezzo }}</p>
+        <p><strong>Telefono:</strong> {{ ristorante.telefono }}</p>
+        <p><strong>Valutazione:</strong> {{ ristorante.valutazione_vera }}</p>
+        <p><strong>Specialità:</strong>
+            {% if ristorante.carne %}Carne{% endif %}
+            {% if ristorante.pesce %}Pesce{% endif %}
+            {% if ristorante.pizza %}Pizza{% endif %}
+            {% if ristorante.vegan %}Vegan{% endif %}
+            {% if ristorante.sushi %}Sushi{% endif %}
+        </p>
+
+        <a href="{% url 'recensioniristorante' ristorante.pk%}" class="btn btn-primary">Recensioni</a>
+
+        {% if utente %}
+        <a href="{% url 'prenota_ristorante_vero' ristorante.pk %}" class="btn btn-primary">Prenota</a>
+
+
+        {% elif special %}
+            <a href="{% url 'add_piatto' ristorante.pk%}" class="btn btn-primary">Aggiungi piatto</a>
+        {% else %}
+            <p> Per poter prenotare, registrati! </p>
+        {% endif %}
+
+        <form method="get">
+            <br>
+            {{ search_form }}
+            <input type="submit" value="Cerca" class="btn btn-primary"> <a href="{% url 'prenota_ristorante' ristorante.pk%}" class="btn btn-primary">Reset</a>
+        </form>
+        <br>
+        <p><a href="{% url 'home' %}" class="btn btn-primary">Indietro</a></p>
+        
+
+        </div>
+
+
+
+
+    <div class="col-md-8">        
+        {% if piatti %}
+            <h2>Piatti:</h2><br>
+            <div class="row">
+                {% for piatto in piatti %}
+                    <div class="col-md-4 mb-5">
+
+                        <div class="card" style="width: 18rem;">
+                        
+                            {% if piatto.immagine %}
+                                <img src="{{ piatto.immagine.url }}" class="card-img-top" alt="immagine piatto">
+                            {% endif %}
+
+                            <div class="card-body">
+                                <h5 class="card-title">{{piatto.titolo}}</h5>
+                                <p class="card-text">{{piatto.descrizione}}</p>
+                                <p class="card-text">{{piatto.prezzo}} €</p>
+
+                                {% if special %}
+                                    <a href="{% url 'modifica_piatto' piatto.pk %}" class="btn btn-primary">Modifica</a>
+                                    <a href="{% url 'elimina_piatto' piatto.pk %}" class="btn btn-primary">Elimina</a>
+                                {% endif %}
+                          
+                            
+                            </div>
+                      </div>
+                    
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>Nessun piatto trovato</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

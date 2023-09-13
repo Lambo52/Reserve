@@ -12,6 +12,7 @@
                     per {{ ristorante.numero_persone }} persone. 
                     <a href="{% url 'elimina_lista_attesa' ristorante.lista_attesa_pk %}" class="btn btn-primary">Elimina notifica</a>
                 </li>
+                <br>
             {% endfor %}
         </ul>
     {% else %}

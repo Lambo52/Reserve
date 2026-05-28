@@ -1,4 +1,4 @@
-# Reserve - esame Tecnologie Web - Triennale
+# Reserve
 
 Il progetto è stato realizzato con Django.
 
